@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
 
   registerMode = false;
   values: any;
-   
+
   constructor(private http: Http) {
 
    }
