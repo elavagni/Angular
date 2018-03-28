@@ -16,6 +16,7 @@ import { MemberListComponent } from './member-list/member-list.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
+import { UserService } from './_services/user.service';
 
 
 
@@ -39,7 +40,8 @@ import { AuthGuard } from './_guards/auth.guard';
   providers: [
     AuthService,
     AlertifyService,
-    AuthGuard
+    AuthGuard,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
