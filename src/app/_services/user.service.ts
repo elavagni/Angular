@@ -3,7 +3,7 @@ import { Http, RequestOptions, Headers } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/throw';
+import 'rxjs/add/Observable/throw';
 import 'rxjs/add/operator/catch';
 import { User } from '../_models/User';
 
