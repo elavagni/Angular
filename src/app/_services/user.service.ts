@@ -6,26 +6,25 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/Observable/throw';
 import 'rxjs/add/operator/catch';
 import { User } from '../_models/User';
+import { AuthHttp } from 'angular2-jwt';
 
 @Injectable()
 export class UserService {
     baseUrl = environment.apiUrl;
-constructor(private http: Http) { }
+constructor(private authHttp: AuthHttp) { }
 
 getUsers(): Observable<User[]> {
-    return this.http.get(this.baseUrl + 'users', this.jwt())
+    return this.authHttp.get(this.baseUrl + 'users')
     .map(response => <User[]>response.json())
     .catch(this.handleError);
 }
 
-private jwt() {
-    const token = localStorage.getItem('token');
-    if (token) {
-        const headers = new Headers({'Authorization' : 'Bearer ' + token});
-        headers.append('Content-type', 'application/json');
-        return new RequestOptions({headers: headers});
-    }
+getUser(id: number): Observable<User> {
+    return this.authHttp.get(this.baseUrl + 'users/' + id)
+    .map(response => <User>response.json())
+    .catch(this.handleError);
 }
+
 private handleError(error: any) {
     const applicationError = error.headers.get('Application-Error');
     if (applicationError) {

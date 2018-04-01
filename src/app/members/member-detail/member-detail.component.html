@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <h1>{{user?.knownAs}}' Profile</h1>
+  </div>
+  <div class="row">
+     <div class="col-sm-4">
+       <div class="panel panel-default">
+         <img src="{{user?.photoUrl}}" alt="{{user?.knownAs}}" class="profile-image thumbnail">
+         <div class="panel body"></div>
+         <strong>Location:</strong>
+         <p>
+           {{user?.city}}, {{user?.country}}
+         </p>
+         <strong>Age:</strong>
+         <p>
+           {{user?.age}}
+         </p>
+         <strong>Last Active:</strong>
+         <p>
+           {{user?.lastActvice}}
+         </p>
+         <strong>Member Since</strong>
+         <p>
+           {{user?.created}}
+         </p>
+        </div>
+     </div>
+    </div>
+</div>

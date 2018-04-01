@@ -1,3 +1,4 @@
+import { AuthModule } from './auth/auth.module';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,6 +19,7 @@ import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
 import { UserService } from './_services/user.service';
 import { MemberCardComponent } from './members/member-card/member-card.component';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 
 
 
@@ -30,14 +32,16 @@ import { MemberCardComponent } from './members/member-card/member-card.component
     MessagesComponent,
     ListsComponent,
     MemberListComponent,
-    MemberCardComponent
+    MemberCardComponent,
+    MemberDetailComponent
 ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
     BsDropdownModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    AuthModule
   ],
   providers: [
     AuthService,
