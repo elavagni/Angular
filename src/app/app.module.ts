@@ -26,7 +26,7 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberDetailResolver } from './_resolvers/member-detail-resolver';
 import { MemberListResolver } from './_resolvers/member-list-resolver';
 import { MemberEditResolver } from './_resolvers/member-edit-resolver';
-import { PreventUnsavedChangesGuardsts } from './_guards/prevent-unsaved-changes-guards';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 @NgModule({
   declarations: [
@@ -59,7 +59,7 @@ import { PreventUnsavedChangesGuardsts } from './_guards/prevent-unsaved-changes
     MemberDetailResolver,
     MemberListResolver,
     MemberEditResolver,
-    PreventUnsavedChangesGuardsts
+    PreventUnsavedChanges
   ],
   bootstrap: [AppComponent]
 })
