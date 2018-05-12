@@ -7,6 +7,7 @@ import { Jsonp } from '@angular/http';
 import { UserService } from '../../_services/user.service';
 import { AlertifyService } from '../../_services/alertify.service';
 import * as _ from 'underscore';
+import { JSONP_HOME } from '@angular/http/src/backends/browser_jsonp';
 
 @Component({
   selector: 'app-photo-editor',
@@ -66,10 +67,22 @@ export class PhotoEditorComponent implements OnInit {
     this.currentMain = _.findWhere(this.photos, {isMainPhoto: true});
     this.currentMain.isMainPhoto = false;
     photo.isMainPhoto = true;
-    this.getMemberPhotoChange.emit(photo.url);
+    this.authService.changeMemberPhoto(photo.url);
+    this.authService.currentUser.photoUrl = photo.url;
+    localStorage.setItem('user', JSON.stringify(this.authService.currentUser));
     }, error => {
       this.alertify.error(error);
     });
   }
 
+  deletePhoto(id: number) {
+    this.alertify.confirm('Are you sure you want to delete this photo?', () => {
+      this.userService.deletePhoto(this.authService.decotedToken.nameid, id).subscribe(() => {
+        this.photos.splice(_.findIndex(this.photos, { id: id }), 1);
+        this.alertify.success('The photo has been deleted');
+      }, error => {
+        this.alertify.error('Failed to delete photo');
+      });
+    });
+}
 }

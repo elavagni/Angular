@@ -8,10 +8,11 @@ import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
 import { decode } from 'punycode';
 import { User } from '../_models/User';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
-    baseUrl = 'http://localhost:5000/api/auth/';
+    baseUrl = environment.apiUrl;
     userToken: any;
     decotedToken: any;
     jwtHelper = new JwtHelper();
@@ -24,10 +25,8 @@ export class AuthService {
     changeMemberPhoto(photoUrl: string) {
         this.photoUrl.next(photoUrl);
     }
-
-
     login(model: any) {
-        return this.http.post(this.baseUrl + 'login', model, this.requestOptions()).map((response: Response) => {
+      return this.http.post(this.baseUrl + 'auth/login', model, this.requestOptions()).map((response: Response) => {
             const user = response.json();
             if (user) {
                 localStorage.setItem('token', user.tokenString);
@@ -40,7 +39,7 @@ export class AuthService {
         }).catch(this.handleError);
     }
     public register(model: any) {
-        return this.http.post(this.baseUrl + 'register', model, this.requestOptions()).catch(this.handleError);
+        return this.http.post(this.baseUrl + 'auth/register', model, this.requestOptions()).catch(this.handleError);
     }
 
     public loggedIn() {

@@ -51,4 +51,9 @@ private handleError(error: any) {
         modelStateError || 'Server error'
     );
 }
+
+deletePhoto(userId: number, id: number) {
+    return this.authHttp.delete(this.baseUrl + 'users/' + userId + '/photos/' + id).catch(this.handleError);
+}
+
 }
