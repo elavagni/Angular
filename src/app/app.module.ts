@@ -58,7 +58,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     FileUploadModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    ButtonsModule.forRoot()
   ],
   providers: [
     AuthService,
