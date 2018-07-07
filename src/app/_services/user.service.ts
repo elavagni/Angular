@@ -15,9 +15,18 @@ export class UserService {
 
     constructor(private authHttp: AuthHttp) { }
 
-    getUsers(page?: number, itemsPerPage?: number, userParams?: any) {
+    getUsers(page?: number, itemsPerPage?: number,
+             userParams?: any, likeParams?: string) {
         const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
         let queryString = '?';
+
+        if (likeParams === 'Likers') {
+            queryString += 'Likers=true&';
+        }
+
+        if (likeParams === 'Likees') {
+            queryString += 'Likees=true&';
+        }
 
         if (page != null && itemsPerPage != null) {
             queryString += 'pageNumber=' + page + '&pageSize=' + itemsPerPage + '&';
@@ -59,6 +68,9 @@ export class UserService {
     }
 
     private handleError(error: any) {
+        if (error.status === 400) {
+            return Observable.throw(error._body);
+        }
         const applicationError = error.headers.get('Application-Error');
         if (applicationError) {
             return Observable.throw(applicationError);
@@ -75,6 +87,11 @@ export class UserService {
         return Observable.throw(
             modelStateError || 'Server error'
         );
+    }
+
+    sendLike(id: number, recipientId: number) {
+        console.log(recipientId);
+        return this.authHttp.post(this.baseUrl + 'users/' + id + '/like/' + recipientId, {}).catch(this.handleError);
     }
 
     deletePhoto(userId: number, id: number) {
