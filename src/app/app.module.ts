@@ -31,6 +31,8 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ListResolver } from './_resolvers/list.resolver.ts';
+import { MessageResolver } from './_resolvers/message-resolver';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { ListResolver } from './_resolvers/list.resolver.ts';
     MemberDetailComponent,
     MemberEditComponent,
     PhotoEditorComponent,
-    TimeAgoPipe
+    TimeAgoPipe,
+    MemberMessagesComponent
 ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ import { ListResolver } from './_resolvers/list.resolver.ts';
     MemberListResolver,
     MemberEditResolver,
     PreventUnsavedChanges,
-    ListResolver
+    ListResolver,
+    MessageResolver
   ],
   bootstrap: [AppComponent]
 })
