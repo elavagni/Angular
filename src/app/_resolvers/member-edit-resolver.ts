@@ -15,8 +15,6 @@ export class MemberEditResolver implements Resolve<User> {
                 private alertify: AlertifyService, private authService: AuthService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<User> {
-        console.log(this.userService.getUser(this.authService.decotedToken.nameid));
-        console.log(this.authService.decotedToken.nameid);
         return this.userService.getUser(this.authService.decotedToken.nameid).catch(error => {
             this.alertify.error('Problem retrieving data');
             this.router.navigate(['members/']);

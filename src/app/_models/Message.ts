@@ -5,7 +5,7 @@ export class Message {
    senderPhotoUrl: string;
    recipientId: number;
    recipientKnownAs: string;
-   recipientPhotoUrl: string;
+   recipienPhotoUrl: string;
    content: string;
    isRead:  boolean;
    dateRead: Date;

@@ -8,7 +8,7 @@
         <i class="fa fa-envelope-open"></i> Inbox
       </button>
       <button class="btn btn-primary" [(ngModel)] = "messageContainer" btnRadio="Outbox" (click)="loadMessages()">
-        <i class="fa fa-paper-plane"></i> Outbox
+        <i class="fa fa-envelope-open"></i> Outbox
       </button>
     </div>
   </div>
@@ -21,8 +21,8 @@
     <table class="table table-hover" style="cursor: pointer">
         <tr>        
       <th style="width: 40%">Message</th>
-          <th style="width: 20%">From / To</th>
-          <th style="width: 20%">Sent / Received</th>
+          <th style="width: 20%">{{ this.messageContainer === 'Outbox' ? 'To' : 'From'  }}</th>
+          <th style="width: 20%">{{ this.messageContainer === 'Outbox' ? 'Sent' : 'Received'  }} </th>
           <th style="width: 20%"></th>
         </tr>
         <tr *ngFor="let message of messages" [routerLink]="['/members', 
@@ -34,13 +34,13 @@
               <strong>{{message.senderKnownAs}}</strong>
             </div>
             <div *ngIf="messageContainer == 'Outbox'">
-              <img [src]="message.recipientPhotoUrl" class="img-circle">
+              <img [src]="message.recipienPhotoUrl" class="img-circle">
               <strong>{{message.recipientKnownAs}}</strong>
             </div>
           </td>
           <td>{{message.messageSent | timeAgo}}</td>
           <td>
-            <button class="btn btn-danger">Delete</button>
+            <button class="btn btn-danger"(click)="$event.stopPropagation()" (click)="deleteMessage(message.id)" >Delete</button>
           </td>
         </tr>
       </table>

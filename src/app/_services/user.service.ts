@@ -91,7 +91,6 @@ export class UserService {
     }
 
     sendLike(id: number, recipientId: number) {
-        console.log(recipientId);
         return this.authHttp.post(this.baseUrl + 'users/' + id + '/like/' + recipientId, {}).catch(this.handleError);
     }
 
@@ -119,6 +118,20 @@ export class UserService {
             .map((respose: Response) => {
                 return respose.json();
         }).catch(this.handleError);
+    }
+
+    sendMessage(userId: number, message: Message) {
+        return this.authHttp.post(this.baseUrl  + 'users/' + userId +  '/messages', message).map((response: Response) => {
+            return response.json();
+        }).catch(this.handleError);
+    }
+
+    deleteMessage(id: number, userId: number) {
+        return this.authHttp.post(this.baseUrl +  'users/' + userId + '/messages/' + id, {}).map(response => {}).catch(this.handleError);
+    }
+
+    markAsRead(id: number, userId: number) {
+        return this.authHttp.post(this.baseUrl + 'users/' + userId + '/messages/' + id + '/read', {}).subscribe();
     }
 
 
