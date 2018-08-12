@@ -1,61 +1,52 @@
 <div class="panel panel-primary">
   <div class="panel-body">
-    <div *ngIf = "messages?.length===0">
+    <div *ngIf="messages?.length===0">
       <p>No message yet... say hi by using the message below</p>
     </div>
+    
+   
+    <div class="chat">
+      <div class="messages" *ngFor="let message of messages">
 
-    <ul class="chat">
-      <li *ngFor="let message of messages">
-          <!--to them-->
-          <div *ngIf="message.senderId == userId">
-            <span class="chat-img pull-left">
-              <img src="{{message.senderPhotoUrl}}" class="img-cirlce">
-            </span>
-            <div class="chat-body">
-              <div class="header">                
-                <strong class="primary-font">{{message.senderKnownAs}}</strong>
-                <small class="text-muted pull-right">
-                  <span class="fa fa-clock-o"> </span>
-                  <span *ngIf="!message.isRead"  class="text-muted text-danger">(Unread)</span>
-                  <span *ngIf="message.isRead"  class="text-muted text-success">(Read {{message.dateRead | timeAgo}})</span>
-                </small>
-              </div>
-              <p>{{message.content}}</p>
-            </div>
-          </div>
-
-          <!--to me-->
-
-          <div *ngIf="message.senderId != userId">
-              <span class="chat-img pull-right">
+         <!--To me-->
+        <div class="message-container-sent" *ngIf="message.senderId == userId">
+          <div class="message recieved">            
+              <span class="chat-img pull-left">
                 <img src="{{message.senderPhotoUrl}}" class="img-cirlce">
               </span>
-              <div class="chat-body">
-                <div class="header">                
-                  <small class="text-muted">
-                      <span class="fa fa-clock-o"> </span>
-                      <span *ngIf="!message.isRead"  class="text-muted text-danger">(Unread)</span>
-                      <span *ngIf="message.isRead"  class="text-muted text-success">(Read {{message.dateRead | timeAgo}})</span>
-                    </small>
-                  <strong class="primary-font pull-right">{{message.senderKnownAs}}</strong>                  
-                </div>
-                <p>{{message.content}}</p>
-              </div>
-            </div>
-      </li>
-    </ul>
+              <strong class="primary-font message-text">{{message.senderKnownAs}}</strong>
+              <small class="text-muted">
+                <span class="fa fa-clock-o"> </span>
+                <span *ngIf="!message.isRead" class="text-muted text-danger">(Unread))&lrm;</span>
+                <span *ngIf="message.isRead" class="text-muted text-success">({{message.dateRead | timeAgo}})&lrm;</span>
+              </small>
+              <p>{{message.content}}</p>            
+          </div>
+        </div>
 
+        <!--to them-->
+        <div class="message-container-recieved" *ngIf="message.senderId != userId">
+          <div class="message sent">
+            <strong class="primary-font message-text">{{message.senderKnownAs}}</strong>
+            <small class="text-muted">
+              <span class="fa fa-clock-o"> </span>
+              <span *ngIf="!message.isRead" class="text-muted text-danger">(Unread)&lrm;</span>
+              <span *ngIf="message.isRead" class="text-muted text-success">(Read {{message.dateRead | timeAgo}})&lrm;</span>
+            </small>
+            <p>{{message.content}}</p>
+          </div>
+        </div>
+      </div>
+      <a id="after-last-message"></a>
+    </div>
   </div>
   <div class="panel-footer">
-    <form #messageForm="ngForm" (ngSubmit) ="messageForm.valid && sendMessage()">
+    <form #messageForm="ngForm" (ngSubmit)="messageForm.valid && sendMessage()">
       <div class="input-group">
-        <input  type="text"
-                required
-                name = "content"
-                class="form-control input-sm" 
-                [(ngModel)] = "newMessage.content"
-                placeholder="send a private message">
-        <span class="input-group-btn"><button class="btn btn-primary btn-sm" [disabled]="!messageForm.valid">Send</button></span>      
+        <input type="text" required name="content" class="form-control input-sm" [(ngModel)]="newMessage.content" placeholder="send a private message">
+        <span class="input-group-btn">
+          <button class="btn btn-primary btn-sm" [disabled]="!messageForm.valid">Send</button>
+        </span>
       </div>
     </form>
   </div>
