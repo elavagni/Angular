@@ -7,3 +7,8 @@
 .table > tbody > tr > td {
     vertical-align: middle;
 }
+
+.rounded-circle {
+    height: 50px;
+    width: 50px;
+  }

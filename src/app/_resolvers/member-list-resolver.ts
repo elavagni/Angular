@@ -3,9 +3,9 @@ import { User } from '../_models/User';
 import { Injectable } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { AlertifyService } from '../_services/alertify.service';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/of';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
 
 @Injectable()
 export class MemberListResolver implements Resolve<User[]> {
@@ -15,11 +15,12 @@ export class MemberListResolver implements Resolve<User[]> {
     pageNumber = 1;
 
     resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
-        return this.userService.getUsers(this.pageNumber, this.pageSize).catch(error => {
-            this.alertify.error('Problem retrieving data');
-            this.router.navigate(['home/']);
-
-            return Observable.of(null);
-        });
+        return this.userService.getUsers(this.pageNumber, this.pageSize).pipe(
+            catchError(error => {
+                this.alertify.error('Problem retrieving data');
+                 this.router.navigate(['home/']);
+                return of(null);
+            })
+        );
     }
 }
