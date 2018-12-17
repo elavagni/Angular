@@ -6,18 +6,20 @@ import { AlertifyService } from '../_services/alertify.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
-import { AuthService } from '../_services/auth.service';
 
 @Injectable()
-export class MemberEditResolver implements Resolve<User> {
+export class ListResolver implements Resolve<User[]> {
 
-    constructor(private userService: UserService, private router: Router,
-                private alertify: AlertifyService, private authService: AuthService) {}
+    constructor(private userService: UserService, private router: Router, private alertify: AlertifyService) {}
+    pageSize = 5;
+    pageNumber = 1;
+    likesParam = 'Likers';
 
-    resolve(route: ActivatedRouteSnapshot): Observable<User> {
-        return this.userService.getUser(this.authService.decotedToken.nameid).catch(error => {
+    resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
+        return this.userService.getUsers(this.pageNumber, this.pageSize, null, this.likesParam).catch(error => {
             this.alertify.error('Problem retrieving data');
-            this.router.navigate(['members/']);
+            this.router.navigate(['home/']);
+
             return Observable.of(null);
         });
     }
