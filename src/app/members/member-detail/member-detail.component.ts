@@ -14,7 +14,7 @@ import { AuthService } from '../../_services/auth.service';
   styleUrls: ['./member-detail.component.css']
 })
 export class MemberDetailComponent implements OnInit {
-  @ViewChild('memberTabs') memberTabs: TabsetComponent;
+  @ViewChild('memberTabs', { static: true }) memberTabs: TabsetComponent;
   user: User;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
@@ -24,7 +24,7 @@ export class MemberDetailComponent implements OnInit {
     private userService: UserService,
     private alertify: AlertifyService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -68,7 +68,7 @@ export class MemberDetailComponent implements OnInit {
 
   sendLike(id: number) {
     this.userService.sendLike(this.authService.decodedToken.nameid, id).subscribe(data => {
-        this.alertify.success('You have liked: ' + this.user.knownAs);
+      this.alertify.success('You have liked: ' + this.user.knownAs);
     }, error => {
       this.alertify.error(error);
     });
