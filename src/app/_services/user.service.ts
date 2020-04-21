@@ -40,12 +40,12 @@ export class UserService {
       params = params.append('orderBy', userParams.orderBy);
     }
 
-    if (likesParam === 'Likers') {
-      params = params.append('Likers', 'true');
+    if (likesParam === 'LikesGiven') {
+      params = params.append('LikesGiven', 'true');
     }
 
-    if (likesParam === 'Likees') {
-      params = params.append('Likees', 'true');
+    if (likesParam === 'LikesReceived') {
+      params = params.append('LikesReceived', 'true');
     }
 
     return this.http.get<User[]>(this.baseUrl + 'users', { observe: 'response', params })
