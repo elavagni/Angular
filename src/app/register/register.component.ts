@@ -2,8 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { validateConfig } from '@angular/router/src/config';
-import { BsDatepickerConfig } from 'ngx-bootstrap';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { User } from '../_models/User';
 import { Router } from '@angular/router';
 
@@ -17,19 +16,19 @@ export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
   registerForm: FormGroup;
   user: User;
-  bsConfig:   Partial<BsDatepickerConfig>;
+  bsConfig: Partial<BsDatepickerConfig>;
 
 
   constructor(private authService: AuthService,
-              private alertify: AlertifyService,
-              private formBuilder: FormBuilder,
-              private router: Router) {
+    private alertify: AlertifyService,
+    private formBuilder: FormBuilder,
+    private router: Router) {
   }
 
   ngOnInit() {
     this.bsConfig = {
-                      containerClass: 'theme-dark-blue'
-                    };
+      containerClass: 'theme-dark-blue'
+    };
     this.createRegisterForm();
     /*this.registerForm = new FormGroup( {
       username: new FormControl('', Validators.required),
@@ -40,7 +39,7 @@ export class RegisterComponent implements OnInit {
   }
 
   passwordMatchValidator(formGroup: FormGroup) {
-    return formGroup.get('password').value === formGroup.get('confirmPassword').value ? null : {'mismatch': true};
+    return formGroup.get('password').value === formGroup.get('confirmPassword').value ? null : { 'mismatch': true };
   }
 
   createRegisterForm() {
@@ -52,11 +51,11 @@ export class RegisterComponent implements OnInit {
       city: ['', Validators.required],
       country: ['', Validators.required],
       password: [
-                  '',
-                  [Validators.required, Validators.minLength(4), Validators.maxLength(8)]
-                ],
+        '',
+        [Validators.required, Validators.minLength(4), Validators.maxLength(8)]
+      ],
       confirmPassword: ['', Validators.required]
-    }, { validator: this.passwordMatchValidator } );
+    }, { validator: this.passwordMatchValidator });
   }
 
   register() {
@@ -68,7 +67,7 @@ export class RegisterComponent implements OnInit {
         this.alertify.error(error);
       }, () => {
         this.authService.login(this.user).subscribe(() => {
-            this.router.navigate(['/members']);
+          this.router.navigate(['/members']);
         });
       });
     }
