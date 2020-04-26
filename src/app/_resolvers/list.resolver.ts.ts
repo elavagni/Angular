@@ -8,10 +8,10 @@ import { catchError } from 'rxjs/operators';
 @Injectable()
 export class ListResolver implements Resolve<User[]> {
 
-    constructor(private userService: UserService, private router: Router, private alertify: AlertifyService) {}
+    constructor(private userService: UserService, private router: Router, private alertify: AlertifyService) { }
     pageSize = 5;
     pageNumber = 1;
-    likesParam = 'Likers';
+    likesParam = 'LikesReceived';
 
     resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
         return this.userService.getUsers(this.pageNumber, this.pageSize, null, this.likesParam).pipe(
