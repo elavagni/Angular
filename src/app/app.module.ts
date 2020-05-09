@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { BsDatepickerModule, } from 'ngx-bootstrap/datepicker';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
@@ -39,6 +40,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { HasRoleDirective } from './directives/hasRole.directive';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
+import { AdminService } from './_services/admin.service';
+import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -58,7 +65,12 @@ export function tokenGetter() {
     PhotoEditorComponent,
     MemberListComponent,
     TimeAgoPipe,
-    MemberMessagesComponent
+    MemberMessagesComponent,
+    AdminPanelComponent,
+    HasRoleDirective,
+    UserManagementComponent,
+    PhotoManagementComponent,
+    RolesModalComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +93,9 @@ export function tokenGetter() {
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     PaginationModule.forRoot(),
-    ButtonsModule.forRoot()
+    ButtonsModule.forRoot(),
+    ModalModule.forRoot()
+
   ],
   providers: [
     AuthService,
@@ -94,7 +108,11 @@ export function tokenGetter() {
     MemberEditResolver,
     PreventUnsavedChanges,
     ListResolver,
-    MessageResolver
+    MessageResolver,
+    AdminService
+  ],
+  entryComponents: [
+    RolesModalComponent
   ],
   bootstrap: [AppComponent]
 })

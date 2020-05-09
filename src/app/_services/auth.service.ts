@@ -20,11 +20,11 @@ export class AuthService {
   jwtHelper = new JwtHelperService();
   decodedToken: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   changeMemberPhoto(photoUrl: string) {
     this.photoUrl.next(photoUrl);
-}
+  }
 
 
   login(model: any) {
@@ -34,15 +34,15 @@ export class AuthService {
         if (user) {
           localStorage.setItem('token', user.tokenString);
           this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
-         localStorage.setItem('user', JSON.stringify(user.user));
-                this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
-                this.currentUser = user.user;
-                this.userToken = user.tokenString;
-                if (this.currentUser.photoUrl !== null) {
-                    this.changeMemberPhoto(this.currentUser.photoUrl);
-                } else {
-                    this.changeMemberPhoto('../../assets/user.png');
-                }
+          localStorage.setItem('user', JSON.stringify(user.user));
+          this.decodedToken = this.jwtHelper.decodeToken(user.tokenString);
+          this.currentUser = user.user;
+          this.userToken = user.tokenString;
+          if (this.currentUser.photoUrl !== null) {
+            this.changeMemberPhoto(this.currentUser.photoUrl);
+          } else {
+            this.changeMemberPhoto('../../assets/user.png');
+          }
         }
       })
     );
@@ -55,6 +55,18 @@ export class AuthService {
   loggedIn() {
     const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);
+  }
+
+  roleMatch(allowedRoles): boolean {
+    let isMatch = false;
+    const userRoles = this.decodedToken.role as Array<string>;
+    allowedRoles.forEach(element => {
+      if (userRoles && userRoles.includes(element)) {
+        isMatch = true;
+        return;
+      }
+    });
+    return isMatch;
   }
 }
 
