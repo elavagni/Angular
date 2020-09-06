@@ -1,14 +1,14 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, Pipe } from '@angular/core';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { BsDatepickerModule, } from 'ngx-bootstrap/datepicker';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { NgxGalleryModule } from 'ngx-gallery';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { TimeAgoPipe } from 'time-ago-pipe';
 
 import { AppComponent } from './app.component';
@@ -50,6 +50,13 @@ import { RolesModalComponent } from './admin/roles-modal/roles-modal.component';
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
+@Pipe({
+  name: 'timeAgo',
+  pure: false
+})
+export class TimeAgoExtendsPipe extends TimeAgoPipe { }
+
+
 
 @NgModule({
   declarations: [
@@ -64,7 +71,7 @@ export function tokenGetter() {
     MemberEditComponent,
     PhotoEditorComponent,
     MemberListComponent,
-    TimeAgoPipe,
+    TimeAgoExtendsPipe,
     MemberMessagesComponent,
     AdminPanelComponent,
     HasRoleDirective,

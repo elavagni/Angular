@@ -3,8 +3,8 @@ import { User } from '../../_models/User';
 import { UserService } from '../../_services/user.service';
 import { AlertifyService } from '../../_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
-import { NgxGalleryOptions, NgxGalleryAnimation } from 'ngx-gallery';
-import { NgxGalleryImage } from 'ngx-gallery';
+import { NgxGalleryOptions, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
+import { NgxGalleryImage } from '@kolkov/ngx-gallery';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { AuthService } from '../../_services/auth.service';
 
